@@ -1,0 +1,18 @@
+#
+- name: rabbitmq - add repository key
+  apt_key:
+    keyserver: keyserver.ubuntu.com
+    id: 6B73A36E6026DFCA
+
+- name: rabbitmq - add repository
+  apt_repository:
+    repo: "{{ item }}"
+    state: "present"
+    update_cache: yes
+  with_items:
+    - "deb http://www.rabbitmq.com/debian/ testing main"
+
+- name: rabbitmq - install server
+  apt:
+    name: "rabbitmq-server"
+    state: "present"
